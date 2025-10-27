@@ -1,0 +1,147 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body{
+    background-color: #1E1E1E;
+}
+/* fondo-index */
+.body-index {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  width: 100vw;
+  background: url("../image/fondo_index.png") no-repeat center center/cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: Arial, sans-serif;
+}
+
+/* btn */
+.btn {
+  background-color: white;
+  color: black;
+  font-weight: bold;
+  font-size: 1rem;
+  text-decoration: none;
+  padding: 15px 50px;
+  border-radius: 50px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+  transition: all 0.3s ease;
+}
+
+.btn:hover {
+  background-color: black;
+  color: white;
+  transform: scale(1.05);
+}
+
+
+/* NAVBAR */
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 60px;
+  background: transparent;
+  backdrop-filter: blur(8px); 
+  z-index: 100;
+}
+
+.logo {
+  color: #ffffff;
+  font-size: 1.8rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+}
+
+.nav-links a {
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+  color: #aaa;
+}
+
+/* Carrito */
+.cart {
+  display: flex;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 5px 14px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.cart:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.cart span {
+  font-weight: bold;
+  margin-right: 6px;
+  color: #fff;
+}
+
+.cart i {
+  color: #fff;
+  font-size: 1rem;
+}
+
+/* HEADER - page principal */
+.hero {
+  position: relative;
+  height: 90vh;
+  width: 100%;
+  background: url("../image/Header-principal.png") no-repeat center center/cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+/* obscurecer Header */
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 1;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+}
+
+.hero-content h1 {
+  font-size: 4rem;
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: #f1f1f1;
+}
+
+.hero-content p {
+  font-size: 1.3rem;
+  font-weight: 500;
+  margin-top: 10px;
+  color: #ccc;
+}
