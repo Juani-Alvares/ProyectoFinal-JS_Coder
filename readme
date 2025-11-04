@@ -1,0 +1,91 @@
+# iLmport – Simulador  Ecommerce 
+
+Proyecto desarrollado como trabajo final para el curso de JavaScript.  
+El objetivo es simular el proceso completo de compra en una tienda de productos importados, utilizando HTML, CSS, Bootstrap y JavaScript sin módulos, con manejo de eventos, DOM, Fetch a JSON externo y almacenamiento local.
+
+---
+
+## 📌 Descripción del proyecto
+
+**iLmport** es una tienda web ficticia que permite al usuario visualizar productos importados, agregarlos al carrito, modificar cantidades, eliminar artículos y finalizar la compra.  
+Al confirmar la compra, el sistema genera un ticket de compra con el detalle del pedido, el subtotal, los cargos de exportación, el costo de envío y el total final.
+---
+
+## 👤 Flujo del usuario
+
+1. El usuario ingresa desde `index.html`
+2. Accede a la tienda en `pages/principal.html` (Boton – Ir a la web)
+3. Visualiza los productos cargados (Cards)
+4. Puede agregar o quitar productos desde carrito
+5. El carrito se guarda con **LocalStorage** del navegador
+6. Desde `pages/carrito.html` puede:
+   - Ver el detalle del carrito
+   - Eliminar productos
+   - Vaciar todo el carrito
+   - Finalizar compra
+7. Al finalizar, se genera un ticket en `pages/ticket.html` con el resumen de compra
+
+---
+
+## 💰 Lógica de negocio aplicada
+
+- Cada producto tiene: `id`, `nombre`, `precio`, `imagen` y `cantidad`
+- Si el carrito tiene **solo 1 producto**, se aplica **5% de recargo**
+- Si el usuario compra **más de 3 unidades en total**, se aplica **otro 5% extra**
+- Se suma el costo fijo de envío: **$50.000**
+- Se agrega una comisión de exportación del **5%**
+- Todas las operaciones se calculan en el front con JavaScript
+- Los datos del ticket se guardan en LocalStorage y se leen desde `ticket.html`
+
+---
+
+## 🛠️ Tecnologías utilizadas
+
+| Tecnología | Uso |
+|------------|-----|
+| **HTML5** | Estructura del sitio |
+| **CSS3 + Bootstrap 5** | Estilos, diseño responsive, maquetación |
+| **JavaScript (Vanilla)** | Lógica del carrito, eventos, DOM |
+| **JSON** | Base de datos de productos (`db/data.json`) |
+| **Toastify JS** | Notificaciones visuales (agregar / eliminar ) |
+| **LocalStorage** | Persistencia de carrito y ticket |
+
+---
+
+## 📁 Estructura de carpetas
+iLmport/
+│── index.html
+│
+├── pages/
+│ ├── principal.html
+│ ├── carrito.html
+│ └── ticket.html
+│
+├── js/
+│ ├── script.js → carga productos y permite agregar al carrito
+│ ├── carrito.js → gestiona el carrito y cálculo del total
+│ └── ticket.js → muestra el comprobante final
+│
+├── style/
+│ └── style.css
+│
+├── db/
+│ └── data.json → datos de productos
+
+
+---
+
+## ▶️ Cómo ejecutar el proyecto
+
+✅ Opción 1 – Abrir con **Live Server** en VSCode (recomendado)  
+El proyecto necesita ser  “visto” desde **http://** (localhost o GitHub).
+
+---
+
+---
+
+## 👨‍💻 Autor
+
+Proyecto realizado por **Juan Ignacio Alvares**  
+Curso: **JavaScript**  
+Año: **2025**

@@ -1,0 +1,10 @@
+[
+  { "id": 1, "nombre": "iPhone 15", "precio": 1199000, "img": "../image/iPhone15.png" },
+  { "id": 2, "nombre": "iPhone 13", "precio": 999000, "img": "../image/iPhone13.png" },
+  { "id": 3, "nombre": "iPhone 12", "precio": 799000, "img": "../image/iPhone12.png" },
+  { "id": 4, "nombre": "AirPods", "precio": 450000, "img": "../image/airpod.png" },
+  { "id": 5, "nombre": "Cargador Rápido", "precio": 120000, "img": "../image/cargador.png" },
+  { "id": 6, "nombre": "Cable USB-C", "precio": 25000, "img": "../image/cable.png" },
+  { "id": 7, "nombre": "Adaptador", "precio": 30000, "img": "../image/adaptador.png" },
+  { "id": 8, "nombre": "Funda protectora", "precio": 60000, "img": "../image/funda.png" }
+]

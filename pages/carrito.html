@@ -5,7 +5,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <!--title-->
-  <title>iLmport - Productos</title>
+  <title>Carrito - iLmport</title>
   <!--css-->
   <link rel="stylesheet" href="../style/style.css">
   <!-- Toastify  -->
@@ -13,37 +13,32 @@
 </head>
 
 <body>
-  
+
   <!--NAVBAR-->
-  <nav class="navbar-transparent">
+  <nav class="navbar-transparent small">
     <div class="nav-inner">
       <div class="brand">iLmport</div>
       <ul class="nav-items">
-        <li><a href="./principal.html">Productos</a></li>
-        <li><a href="./contacto.html">Contacto</a></li>
-        <li><a href="./carrito.html" class="cart-link">🛒</a></li>
+        <li><a href="../pages/principal.html">Volver</a></li>
       </ul>
     </div>
   </nav>
 
-  <!--Header-->
+  <!--carrito-->
 
-  <header class="header-principal">
-    <div class="header-overlay">
-      <h1>Productos Importados</h1>
-      <p>Calidad internacional - Envío seguro</p>
-      
+  <main class="cart-wrap">
+    <div class="cart-card">
+      <h2>Tu carrito</h2>
+      <div id="cart-items" class="cart-items"></div>
+      <div id="cart-summary" class="cart-summary"></div>
+      <div class="cart-actions">
+        <button id="btnCheckout" class="btn-primary">Finalizar compra</button>
+        <button id="btnClear" class="btn-ghost">Vaciar carrito</button>
+      </div>
     </div>
-  </header>
-
-  <!--main - cards-->
-
-  <main class="main-wrap">
-    <section id="productos" class="productos-grid">
-    </section>
   </main>
 
-
+  
   <!-- Footer-->
 
   <footer class="site-footer">
@@ -53,6 +48,6 @@
   <!--js-->
 
   <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
-  <script src="../js/script.js"></script>
+  <script src="../js/carrito.js"></script>
 </body>
 </html>

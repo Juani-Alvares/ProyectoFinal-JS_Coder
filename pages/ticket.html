@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <!--title-->
+  <title>Comprobante</title>
+  <!--css-->
+  <link rel="stylesheet" href="../style/style.css">
+</head>
+
+<body>
+
+  <!--NAVBAR-->
+  <nav class="navbar-transparent">
+    <div class="nav-inner">
+      <div class="brand">iLmport</div>
+      <ul class="nav-items">
+        <li><a href="./principal.html">Productos</a></li>
+        <li><a href="./contacto.html">Contacto</a></li>
+        <li><a href="./carrito.html" class="cart-link">🛒</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- COMPROBANTE - TICKET -->
+  <main class="ticket-wrap">
+    <div class="ticket-card">
+      <div class="ticket-header">
+        <h2>Comprobante de Compra</h2>
+        <div class="meta">
+          <div>Fecha: <span id="ticket-fecha"></span></div>
+          <div>N° Operación: <span id="ticket-num"></span></div>
+        </div>
+      </div>
+
+      <div id="ticket-items" class="ticket-items"></div>
+      <div id="ticket-totales" class="ticket-totales"></div>
+
+      <div class="ticket-actions">
+        <button id="btnPrint" class="btn-primary">Imprimir</button>
+        <a href="principal.html" class="btn-ghost">Volver a la tienda</a>
+      </div>
+    </div>
+  </main>
+
+  <!-- JD -->
+
+  <script src="../js/ticket.js"></script>
+</body>
+</html>
