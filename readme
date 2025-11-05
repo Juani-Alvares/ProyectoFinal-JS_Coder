@@ -46,7 +46,7 @@ Al confirmar la compra, el sistema genera un ticket de compra con el detalle del
 | **HTML5** | Estructura del sitio |
 | **CSS3 + Bootstrap 5** | Estilos, diseño responsive, maquetación |
 | **JavaScript (Vanilla)** | Lógica del carrito, eventos, DOM |
-| **JSON** | Base de datos de productos (`db/data.json`) |
+| **JSON** | Base de datos de productos (`data/data.json`) |
 | **Toastify JS** | Notificaciones visuales (agregar / eliminar ) |
 | **LocalStorage** | Persistencia de carrito y ticket |
 
@@ -69,8 +69,8 @@ iLmport/
 ├── style/
 │ └── style.css
 │
-├── db/
-│ └── data.json → datos de productos
+├── data/
+│ └── productos.json → datos de productos
 
 
 ---

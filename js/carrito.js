@@ -8,7 +8,7 @@ let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
 const ENVIO = 50000;
 const IMPUESTO = 0.05;
 
-
+// Toast
 function toast(msg, type = "info") {
   const bg = type === "error"
     ? "linear-gradient(to right, #ff5f6d, #ffc371)"
@@ -19,23 +19,24 @@ function toast(msg, type = "info") {
     duration: 1600,
     gravity: "top",
     position: "right",
-    style: { background: bg, color: "#111", fontWeight: "700" }
+    style: { background: bg, color: "#111", fontWeight: "600" }
   }).showToast();
 }
 
-
+// === Renderizar carrito ===
 function renderCart() {
   cartItemsEl.innerHTML = "";
 
-  if (!carrito.length) {
+  if (carrito.length === 0) {
     cartItemsEl.innerHTML = "<p>El carrito está vacío.</p>";
     cartSummaryEl.innerHTML = "";
     return;
   }
 
-  carrito.forEach((item, idx) => {
+  carrito.forEach((item, index) => {
     const div = document.createElement("div");
     div.className = "cart-item";
+
     div.innerHTML = `
       <div class="left">
         <img src="${item.img}" alt="${item.nombre}">
@@ -43,51 +44,45 @@ function renderCart() {
           <div class="name">${item.nombre}</div>
           <div class="qty">
             Cantidad: ${item.cantidad}
-            <button class="qty-btn" data-action="restar" data-idx="${idx}">−</button>
-            <button class="qty-btn" data-action="sumar" data-idx="${idx}">+</button>
+            <button class="qty-btn" data-action="restar" data-index="${index}">−</button>
+            <button class="qty-btn" data-action="sumar" data-index="${index}">+</button>
           </div>
         </div>
       </div>
       <div>
         <div class="price">$${(item.precio * item.cantidad).toLocaleString()}</div>
-        <div style="margin-top:8px; text-align:right;">
-          <button class="btn-ghost" data-idx="${idx}">Eliminar</button>
-        </div>
+        <button class="btn-ghost" data-index="${index}">Eliminar</button>
       </div>
     `;
+
     cartItemsEl.appendChild(div);
   });
 
- 
-  document.querySelectorAll(".btn-ghost[data-idx]").forEach(btn => {
-    btn.addEventListener("click", (e) => {
-      const i = parseInt(e.target.dataset.idx);
-      removeItem(i);
-    });
-  });
+  // Botones de eliminar y modificar cantidad
+  document.querySelectorAll(".btn-ghost").forEach((btn) =>
+    btn.addEventListener("click", (e) => removeItem(e.target.dataset.index))
+  );
 
-  
-  document.querySelectorAll(".qty-btn").forEach(btn => {
-    btn.addEventListener("click", (e) => {
-      const i = parseInt(e.target.dataset.idx);
-      const action = e.target.dataset.action;
-      modificarCantidad(i, action);
-    });
-  });
+  document.querySelectorAll(".qty-btn").forEach((btn) =>
+    btn.addEventListener("click", (e) =>
+      modificarCantidad(e.target.dataset.index, e.target.dataset.action)
+    )
+  );
 
-  calcularYMostrar();
+  calcularTotales();
 }
 
+// === Sumar / Restar cantidad ===
 function modificarCantidad(index, action) {
   if (action === "sumar") carrito[index].cantidad++;
   if (action === "restar" && carrito[index].cantidad > 1) carrito[index].cantidad--;
 
   localStorage.setItem("carrito", JSON.stringify(carrito));
   renderCart();
-  toast("Cantidad actualizada ✅");
+  toast("Cantidad actualizada");
 }
 
-
+// === Eliminar producto (sin preguntar) ===
 function removeItem(index) {
   carrito.splice(index, 1);
   localStorage.setItem("carrito", JSON.stringify(carrito));
@@ -95,18 +90,11 @@ function removeItem(index) {
   toast("🗑️ Producto eliminado");
 }
 
-
-function calcularYMostrar() {
-  const subtotal = carrito.reduce((s, p) => s + p.precio * p.cantidad, 0);
+// === Calcular totales ===
+function calcularTotales() {
+  const subtotal = carrito.reduce((_sum, p) => _sum + p.precio * p.cantidad, 0);
   const exportFee = Math.round(subtotal * IMPUESTO);
-
-  let extra = 0;
-  const tipos = carrito.length;
-  const unidades = carrito.reduce((s, p) => s + p.cantidad, 0);
-
-  if (tipos === 1) extra += Math.round(subtotal * 0.05);
-  if (unidades > 3) extra += Math.round(subtotal * 0.05);
-
+  const extra = carrito.length === 1 ? Math.round(subtotal * 0.05) : 0;
   const total = subtotal + exportFee + extra + ENVIO;
 
   const ticket = {
@@ -116,41 +104,32 @@ function calcularYMostrar() {
     extra,
     envio: ENVIO,
     total,
-    fecha: new Date().toLocaleString()
+    fecha: new Date().toLocaleString(),
   };
+
   localStorage.setItem("ticket", JSON.stringify(ticket));
 
   cartSummaryEl.innerHTML = `
-    <div>
-      <p>Subtotal: $${subtotal.toLocaleString()}</p>
-      <p>Comisión exportación (5%): $${exportFee.toLocaleString()}</p>
-      <p>Recargos: $${extra.toLocaleString()}</p>
-      <p>Envío: $${ENVIO.toLocaleString()}</p>
-      <h3>Total: $${total.toLocaleString()}</h3>
-    </div>
+    <p>Subtotal: $${subtotal.toLocaleString()}</p>
+    <p>Impuesto 5%: $${exportFee.toLocaleString()}</p>
+    <p>Recargos: $${extra.toLocaleString()}</p>
+    <p>Envío: $${ENVIO.toLocaleString()}</p>
+    <h3>Total: $${total.toLocaleString()}</h3>
   `;
 }
 
+// Vaciar carrito
+btnClear?.addEventListener("click", () => {
+  carrito = [];
+  localStorage.removeItem("carrito");
+  renderCart();
+  toast("Carrito vaciado ✅");
+});
 
-if (btnClear) {
-  btnClear.addEventListener("click", () => {
-    if (!confirm("¿Vaciar carrito?")) return;
-    carrito = [];
-    localStorage.removeItem("carrito");
-    renderCart();
-    toast("Carrito vaciado ✅", "ok");
-  });
-}
-
-
-if (btnCheckout) {
-  btnCheckout.addEventListener("click", () => {
-    if (!carrito.length) {
-      toast("Carrito vacío", "error");
-      return;
-    }
-    window.location.href = "ticket.html";
-  });
-}
+// Ir al ticket
+btnCheckout?.addEventListener("click", () => {
+  if (!carrito.length) return toast("Carrito vacío", "error");
+  window.location.href = "ticket.html";
+});
 
 renderCart();
