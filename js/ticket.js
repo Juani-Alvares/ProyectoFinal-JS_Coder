@@ -26,7 +26,7 @@ try {
     <h3>Total: $${ticket.total.toLocaleString()}</h3>
   `;
 
-  // limpiar localStorage al terminar
+  // Borrar carrito/ticket
   localStorage.removeItem("carrito");
   localStorage.removeItem("ticket");
 

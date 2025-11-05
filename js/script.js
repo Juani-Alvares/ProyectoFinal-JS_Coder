@@ -1,8 +1,7 @@
-// === Variables globales ===
 const productosContainer = document.getElementById("productos");
 let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
 
-// === Función para mostrar notificaciones con Toastify ===
+// Toastify 
 function toast(msg, type = "info") {
   const bg = type === "error"
     ? "linear-gradient(to right, #ff5f6d, #ffc371)"
@@ -17,16 +16,15 @@ function toast(msg, type = "info") {
   }).showToast();
 }
 
-// === Cargar productos desde JSON ===
+// Cargar productos desde JSON
 async function cargarProductos() {
   try {
     const res = await fetch("../data/productos.json");
     if (!res.ok) throw new Error("Error al cargar productos");
-
     const productos = await res.json();
+
     productosContainer.innerHTML = "";
 
-    // Crear las tarjetas de productos
     productos.forEach((p) => {
       const card = document.createElement("div");
       card.className = "card";
@@ -43,7 +41,7 @@ async function cargarProductos() {
       productosContainer.appendChild(card);
     });
 
-    // Agregar eventos a los botones
+// btn agregar
     document.querySelectorAll(".btn-agregar").forEach((btn) => {
       btn.addEventListener("click", (e) => {
         const id = parseInt(e.target.dataset.id);
@@ -57,7 +55,7 @@ async function cargarProductos() {
   }
 }
 
-// === Agregar producto al carrito ===
+// Agregar al carrito
 function agregarAlCarrito(producto) {
   if (!producto) return;
 
@@ -73,5 +71,4 @@ function agregarAlCarrito(producto) {
   toast(`✅ ${producto.nombre} agregado`);
 }
 
-// Ejecutar inicio
 cargarProductos();

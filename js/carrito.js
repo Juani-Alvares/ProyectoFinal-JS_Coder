@@ -8,7 +8,7 @@ let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
 const ENVIO = 50000;
 const IMPUESTO = 0.05;
 
-// Toast
+
 function toast(msg, type = "info") {
   const bg = type === "error"
     ? "linear-gradient(to right, #ff5f6d, #ffc371)"
@@ -23,7 +23,7 @@ function toast(msg, type = "info") {
   }).showToast();
 }
 
-// === Renderizar carrito ===
+// Render carrito
 function renderCart() {
   cartItemsEl.innerHTML = "";
 
@@ -58,21 +58,21 @@ function renderCart() {
     cartItemsEl.appendChild(div);
   });
 
-  // Botones de eliminar y modificar cantidad
+// btn eliminar y cantidad
   document.querySelectorAll(".btn-ghost").forEach((btn) =>
-    btn.addEventListener("click", (e) => removeItem(e.target.dataset.index))
+    btn.addEventListener("click", (e) => removeItem(parseInt(e.target.dataset.index)))
   );
 
   document.querySelectorAll(".qty-btn").forEach((btn) =>
     btn.addEventListener("click", (e) =>
-      modificarCantidad(e.target.dataset.index, e.target.dataset.action)
+      modificarCantidad(parseInt(e.target.dataset.index), e.target.dataset.action)
     )
   );
 
   calcularTotales();
 }
 
-// === Sumar / Restar cantidad ===
+// Modificar cantidad
 function modificarCantidad(index, action) {
   if (action === "sumar") carrito[index].cantidad++;
   if (action === "restar" && carrito[index].cantidad > 1) carrito[index].cantidad--;
@@ -82,7 +82,7 @@ function modificarCantidad(index, action) {
   toast("Cantidad actualizada");
 }
 
-// === Eliminar producto (sin preguntar) ===
+// Eliminar item 
 function removeItem(index) {
   carrito.splice(index, 1);
   localStorage.setItem("carrito", JSON.stringify(carrito));
@@ -90,11 +90,18 @@ function removeItem(index) {
   toast("🗑️ Producto eliminado");
 }
 
-// === Calcular totales ===
+// Calcular totales y guardar 
 function calcularTotales() {
-  const subtotal = carrito.reduce((_sum, p) => _sum + p.precio * p.cantidad, 0);
+  const subtotal = carrito.reduce((s, p) => s + p.precio * p.cantidad, 0);
   const exportFee = Math.round(subtotal * IMPUESTO);
-  const extra = carrito.length === 1 ? Math.round(subtotal * 0.05) : 0;
+
+  let extra = 0;
+  const tipos = carrito.length;
+  const unidades = carrito.reduce((s, p) => s + p.cantidad, 0);
+
+  if (tipos === 1) extra += Math.round(subtotal * 0.05);
+  if (unidades > 3) extra += Math.round(subtotal * 0.05);
+
   const total = subtotal + exportFee + extra + ENVIO;
 
   const ticket = {
@@ -104,7 +111,7 @@ function calcularTotales() {
     extra,
     envio: ENVIO,
     total,
-    fecha: new Date().toLocaleString(),
+    fecha: new Date().toLocaleString()
   };
 
   localStorage.setItem("ticket", JSON.stringify(ticket));
@@ -126,7 +133,7 @@ btnClear?.addEventListener("click", () => {
   toast("Carrito vaciado ✅");
 });
 
-// Ir al ticket
+// Finalizar compra
 btnCheckout?.addEventListener("click", () => {
   if (!carrito.length) return toast("Carrito vacío", "error");
   window.location.href = "ticket.html";
